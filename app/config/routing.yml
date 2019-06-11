@@ -1,0 +1,3 @@
+diet:
+    resource: '@MealBundle/Resources/config/routing.yml'
+    prefix: /meal

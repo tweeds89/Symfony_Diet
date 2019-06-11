@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Danie</th>
+            <th>Produkty</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ meal.name }}</td>
+            <td>
+                <table>
+                    {% for productQuantity in productsQuantity %}
+                        <tr>
+                            <td>{{ productQuantity.product.name }}: {{ productQuantity.amount }}g</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tbody>
+    </table>
+{% endblock %}

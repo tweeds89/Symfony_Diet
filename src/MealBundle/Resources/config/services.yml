@@ -1,0 +1,22 @@
+services:
+    # Repository
+    meal_repository:
+        class: MealBundle\Repository\MealRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - MealBundle\Entity\Meal
+    product_repository:
+        class: MealBundle\Repository\ProductRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - MealBundle\Entity\Product
+    products_quantity_repository:
+        class: MealBundle\Repository\ProductsQuantityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - MealBundle\Entity\ProductsQuantity
+    day_repository:
+        class: MealBundle\Repository\DayRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - MealBundle\Entity\Day

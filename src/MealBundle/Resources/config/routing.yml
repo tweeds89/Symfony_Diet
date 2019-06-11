@@ -1,0 +1,42 @@
+product_list:
+    path: /product-list
+    controller: MealBundle:Product:index
+    methods: [GET]
+product_add:
+    path: /add-product
+    controller: MealBundle:Product:addProduct
+    methods: [GET, POST]
+product_edit:
+    path: /edit-product/{product}
+    controller: MealBundle:Product:editProduct
+    methods: [GET, POST]
+product_delete:
+    path: /delete-product/{product}
+    controller: MealBundle:Product:deleteProduct
+    methods: [GET, DELETE]
+
+meal_list:
+    path: /meal-list
+    controller: MealBundle:Meal:index
+    methods: [GET]
+meal_add:
+    path: /add-meal
+    controller: MealBundle:Meal:addMeal
+    methods: [GET, POST]
+meal_delete:
+    path: /delete-meal/{meal}
+    controller: MealBundle:Meal:deleteMeal
+    methods: [GET, DELETE]
+meal_details:
+    path: /details-meal/{meal}
+    controller: MealBundle:Meal:detailsMeal
+    methods: [GET]
+
+day_add:
+    path: /add-day
+    controller: MealBundle:Day:addDay
+    methods: [GET, POST]
+day_list:
+    path: /day-list
+    controller: MealBundle:Day:index
+    methods: [GET]

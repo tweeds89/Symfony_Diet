@@ -1,0 +1,8 @@
+diet:
+    meal:
+        day_times:
+            1: Śniadanie
+            2: Drugie śniadanie
+            3: Obiad
+            4: Podwieczorek
+            5: Kolacja

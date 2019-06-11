@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-primary" href="{{ path("day_add") }}" role="button" style="margin-bottom: 15px">Dodaj Dzień</a>
+    {% if days is not empty %}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Dzień</th>
+                <th>Pora dnia/danie</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set previous = false %}
+            {% for day in days %}
+                <tr>
+                    {% if day.day.format("Y-m-d") != previous %}
+                        <td>{{ day.day.format("Y-m-d") }}</td>
+                        {% set previous = day.day.format("Y-m-d") %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>
+                        <table>
+                            <tr>
+                                <td><b>{{ ("diet.meal.day_times." ~day.dayTime) |trans}}:</b><br>
+                                    {% for meal in day.dayMeals %}
+                                        {{ meal.name }}<br>
+                                    {% endfor %}
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-primary" href="{{ path("product_add") }}" role="button">Dodaj Produkt</a>
+    {% if products is not empty %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Produkt</th>
+                <th>Kalorie/100g</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.calories }}</td>
+                    <td>
+                        <a class="btn btn-success" href="{{ path("product_edit", {'product': product.id}) }}"
+                           role="button">Edytuj</a>
+                        <a class="btn btn-danger" href="{{ path("product_delete", {'product': product.id}) }}"
+                           onclick="return confirm('Na pewno chcesz usunąć ten produkt?')" role="button">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
