@@ -24,7 +24,7 @@ class ProductsQuantity
     /**
      * @var Product
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productAmount")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productsQuantity")
      */
     protected $product;
 
@@ -36,7 +36,7 @@ class ProductsQuantity
 
     /**
      * @var $meal
-     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\Meal", mappedBy="productAmount")
+     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\Meal", mappedBy="productsQuantity")
      */
     protected $meal;
 

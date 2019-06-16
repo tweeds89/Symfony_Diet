@@ -39,10 +39,10 @@ class Meal
     protected $productsQuantity;
 
     /**
-     * @var $day
-     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\Day", mappedBy="dayMeals")
+     * @var DayTimeMeal[]
+     * @ORM\OneToMany(targetEntity="MealBundle\Entity\DayTimeMeal", mappedBy="meal")
      */
-    protected $day;
+    protected $dayTimeMeal;
 
     /**
      * Meal constructor.
@@ -107,20 +107,20 @@ class Meal
     }
 
     /**
-     * @return mixed
+     * @return DayTimeMeal[]
      */
-    public function getDay()
+    public function getDayTimeMeal(): array
     {
-        return $this->day;
+        return $this->dayTimeMeal;
     }
 
     /**
-     * @param mixed $day
+     * @param DayTimeMeal[] $dayTimeMeal
      * @return Meal
      */
-    public function setDay($day)
+    public function setDayTimeMeal(array $dayTimeMeal): Meal
     {
-        $this->day = $day;
+        $this->dayTimeMeal = $dayTimeMeal;
         return $this;
     }
 

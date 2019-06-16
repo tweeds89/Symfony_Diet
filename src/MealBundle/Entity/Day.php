@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Id;
-use MealBundle\Enums\DayTimeEnum;
 
 /**
  * Class Day
@@ -30,28 +29,21 @@ class Day
     protected $day;
 
     /**
-     * @see DayTimeEnum
-     * @var int $dayTime
-     * @ORM\Column(name="day_time", type="integer")
-     */
-    protected $dayTime;
-
-    /**
-     * @var Meal[]|Collection
-     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\Meal", inversedBy="day")
-     * @ORM\JoinTable(name="day_meal_relation",
+     * @var DayTimeMeal|Collection
+     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\DayTimeMeal", inversedBy="day", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinTable(name="day_day_time_meal_relation",
      *     joinColumns={@ORM\JoinColumn(name="day_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="meal_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="day_time_meal_id", referencedColumnName="id")}
      * )
      */
-    protected $dayMeals;
+    protected $dayTimeMeals;
 
     /**
      * Day constructor.
      */
     public function __construct()
     {
-        $this->dayMeals = new ArrayCollection();
+        $this->dayTimeMeals = new ArrayCollection();
     }
 
     /**
@@ -91,38 +83,20 @@ class Day
     }
 
     /**
-     * @return int|null
+     * @return Collection|DayTimeMeal
      */
-    public function getDayTime(): ?int
+    public function getDayTimeMeals()
     {
-        return $this->dayTime;
+        return $this->dayTimeMeals;
     }
 
     /**
-     * @param int $dayTime
+     * @param Collection|DayTimeMeal $dayTimeMeals
      * @return Day
      */
-    public function setDayTime(int $dayTime): Day
+    public function setDayTimeMeals($dayTimeMeals)
     {
-        $this->dayTime = $dayTime;
-        return $this;
-    }
-
-    /**
-     * @return Collection|Meal[]
-     */
-    public function getDayMeals()
-    {
-        return $this->dayMeals;
-    }
-
-    /**
-     * @param Collection|Meal[] $dayMeals
-     * @return Day
-     */
-    public function setDayMeals($dayMeals)
-    {
-        $this->dayMeals = $dayMeals;
+        $this->dayTimeMeals = $dayTimeMeals;
         return $this;
     }
 }
