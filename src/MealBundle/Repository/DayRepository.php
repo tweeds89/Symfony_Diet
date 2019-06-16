@@ -10,6 +10,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class DayRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
     public function findAllSortedByDate()
     {
         return $this->createQueryBuilder('d')

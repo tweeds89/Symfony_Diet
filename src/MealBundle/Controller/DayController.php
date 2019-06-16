@@ -20,7 +20,20 @@ class DayController extends Controller
     public function indexAction(): Response
     {
         $days = $this->getDoctrine()->getRepository('MealBundle:Day')->findAllSortedByDate();
-        return $this->render('@Meal/Day/index.html.twig', ['days' => $days]);
+        $dayCalories = [];
+        foreach ($days as $day) {
+            $calories = 0;
+            foreach ($day->getDayTimeMeals() as $dayTimeMeal) {
+
+                $calories += $this->get('calories_counter_manager')->mealCaloriesCount($dayTimeMeal->getMeal());
+            }
+            $dayCalories[$day->getId()] = $calories;
+        }
+
+        return $this->render('@Meal/Day/index.html.twig', [
+            'days' => $days,
+            'dayCalories' => $dayCalories,
+        ]);
     }
 
     /**

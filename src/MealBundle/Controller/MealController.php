@@ -70,9 +70,12 @@ class MealController extends Controller
      */
     public function detailsMealAction(Meal $meal): Response
     {
+        $productsCalories = $this->get('calories_counter_manager')->productCaloriesCount($meal);
+        $mealCalories = $this->get('calories_counter_manager')->mealCaloriesCount($meal);
         return $this->render('@Meal/Meal/details.html.twig', [
             'meal' => $meal,
-            'productsQuantity' => $meal->getProductsQuantity(),
+            'productsCalories' => $productsCalories,
+            'mealCalories' => $mealCalories
         ]);
     }
 }

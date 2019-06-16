@@ -20,3 +20,13 @@ services:
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - MealBundle\Entity\Day
+    day_time_meal_repository:
+        class: MealBundle\Repository\DayTimeMealRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - MealBundle\Entity\DayTimeMeal
+
+    #Managers
+    calories_counter_manager:
+        class: MealBundle\Services\CaloriesCounterManager
+        public: true

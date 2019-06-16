@@ -5,17 +5,21 @@
         <thead>
         <tr>
             <th>Danie</th>
+            <th>Liczba kalorii</th>
             <th>Produkty</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>{{ meal.name }}</td>
+            <td>{{ mealCalories }}</td>
             <td>
                 <table>
-                    {% for productQuantity in productsQuantity %}
+                    {% for name, productCalories in productsCalories %}
                         <tr>
-                            <td>{{ productQuantity.product.name }}: {{ productQuantity.amount }}g</td>
+                            <td>
+                                {{ name }}: {{ productCalories.amount }}g ({{ productCalories.calories }} kal)
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>

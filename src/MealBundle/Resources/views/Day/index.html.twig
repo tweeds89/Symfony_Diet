@@ -7,26 +7,30 @@
             <thead>
             <tr>
                 <th>Dzień</th>
+                <th>Kalorie dzienne</th>
                 <th>Pora dnia/danie</th>
             </tr>
             </thead>
             <tbody>
-            {% set previous = false %}
             {% for day in days %}
                 <tr>
-                    {% if day.day.format("Y-m-d") != previous %}
-                        <td>{{ day.day.format("Y-m-d") }}</td>
-                        {% set previous = day.day.format("Y-m-d") %}
-                    {% else %}
-                        <td></td>
-                    {% endif %}
+                    <td>{{ day.day.format("Y-m-d") }}</td>
+                    <td>
+                        {% for key, calories in dayCalories %}
+                            {% if day.id == key %}
+                                {{ calories }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
                     <td>
                         <table>
                             <tr>
-                                <td><b>{{ ("diet.meal.day_times." ~day.dayTime) |trans}}:</b><br>
-                                    {% for meal in day.dayMeals %}
-                                        {{ meal.name }}<br>
+                                <td>
+                                    {% for dayTimeMeal in day.dayTimeMeals %}
+                                        <b>{{ ("diet.meal.day_times." ~dayTimeMeal.dayTime) |trans }}:</b><br>
+                                        {{ dayTimeMeal.meal }}<br>
                                     {% endfor %}
+                                </td>
                             </tr>
                         </table>
                     </td>

@@ -3,11 +3,10 @@
 namespace MealBundle\Form;
 
 use MealBundle\Entity\Day;
-use MealBundle\Entity\Meal;
-use MealBundle\Enums\DayTimeEnum;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use MealBundle\Entity\DayTimeMeal;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,32 +21,32 @@ class DayType extends AbstractType
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
-     * @throws \ReflectionException
      */
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         parent::buildForm($builder, $options);
 
-        $dayTimes = [];
-        $class = new \ReflectionClass(DayTimeEnum::class);
-        foreach ($class->getConstants() as $option) {
-            $dayTimes['diet.meal.day_times.' . $option] = $option;
-        }
-
         $builder
             ->add('day', DateType::class,[
                 'label' => 'Dzień',
                 'required' => true
-            ])->add('dayTime', ChoiceType::class,[
-                'label' => 'Pora dnia',
-                'required' => true,
-                'choices' => $dayTimes
-            ])->add('dayMeals', EntityType::class, [
+            ])->add('dayTimeMeals', CollectionType::class, [
                 'label' => 'Dania',
-                'class' => Meal::class,
-                'multiple' => true
-            ])
-            ->add('submit', SubmitType::class, [
+                'entry_type' => DayTimeMealType::class,
+                'allow_add' => true,
+                'data' => ['dayTimeMeal' => new DayTimeMeal()],
+                'prototype_name' => '__meal__',
+                'entry_options' => [
+                    'allow_extra_fields' => true,
+                    'label' => false
+                ],
+                'prototype' => true
+            ])->add('addMeal', ButtonType::class, [
+                'label' => 'Dodaj kolejne danie',
+                'attr'  => [
+                    'class' => 'btn-default addDayTimeMeal'
+                ]
+            ])->add('submit', SubmitType::class, [
                 'label' => 'Dodaj'
             ]);
     }
