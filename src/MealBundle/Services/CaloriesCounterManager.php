@@ -17,22 +17,26 @@ class CaloriesCounterManager
     public function productCaloriesCount(Meal $meal): array
     {
         $productCalories = [];
-        $productsQuantity = $meal->getProductsQuantity();
-        foreach ($productsQuantity as $productQuantity) {
-            $productCalories[$productQuantity->getProduct()->getName()] = [
-                'amount' => $productQuantity->getAmount(),
-                'calories' => $productQuantity->getProduct()->getCalories() * $productQuantity->getAmount() / 100
+        $weightProducts = $meal->getWeightProducts();
+        foreach ($weightProducts as $weightProduct) {
+            $productCalories[$weightProduct->getProduct()->getName()] = [
+                'weight' => $weightProduct->getWeight(),
+                'calories' => $weightProduct->getProduct()->getCalories() * $weightProduct->getWeight() / 100
             ];
         }
         return $productCalories;
     }
 
+    /**
+     * @param Meal $meal
+     * @return float|int
+     */
     public function mealCaloriesCount(Meal $meal)
     {
         $mealCalories = 0;
-        $productsQuantity = $meal->getProductsQuantity();
-        foreach ($productsQuantity as $productQuantity) {
-            $mealCalories += $productQuantity->getProduct()->getCalories() * $productQuantity->getAmount() / 100;
+        $weightProducts = $meal->getWeightProducts();
+        foreach ($weightProducts as $weightProduct) {
+            $mealCalories += $weightProduct->getProduct()->getCalories() * $weightProduct->getWeight() / 100;
         }
         return $mealCalories;
     }

@@ -33,10 +33,10 @@ class Product
     protected $calories = 0;
 
     /**
-     * @var ProductsQuantity[]
-     * @ORM\OneToMany(targetEntity="ProductsQuantity", mappedBy="product")
+     * @var WeightProduct[]
+     * @ORM\OneToMany(targetEntity="WeightProduct", mappedBy="product")
      */
-    protected $productsQuantity;
+    protected $weightProducts;
 
     /**
      * @return int
@@ -93,20 +93,20 @@ class Product
     }
 
     /**
-     * @return ProductsQuantity[]
+     * @return WeightProduct[]
      */
-    public function getProductsQuantity(): array
+    public function getWeightProducts(): array
     {
-        return $this->productsQuantity;
+        return $this->weightProducts;
     }
 
     /**
-     * @param ProductsQuantity[] $productsQuantity
+     * @param WeightProduct[] $weightProducts
      * @return Product
      */
-    public function setProductsQuantity(array $productsQuantity): Product
+    public function setWeightProducts(array $weightProducts): Product
     {
-        $this->productsQuantity = $productsQuantity;
+        $this->weightProducts = $weightProducts;
         return $this;
     }
 

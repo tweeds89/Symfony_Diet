@@ -5,10 +5,10 @@ namespace MealBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class ProductsQuantityRepository
+ * Class WeightProductRepository
  * @package MealBundle\Repository
  */
-class ProductsQuantityRepository extends EntityRepository
+class WeightProductRepository extends EntityRepository
 {
 
 }

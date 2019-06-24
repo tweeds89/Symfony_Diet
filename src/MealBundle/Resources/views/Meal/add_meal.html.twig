@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 {% import _self as self %}
-{% macro renderProductsQuantity(productsQuantity) %}
-    <div id="{{ productsQuantity.vars.id }}" class="row form-group product">
-        <div class="col-sm-7">{{ form_widget(productsQuantity.product) }}</div>
-        <div class="col-xs-2 qty">{{ form_widget(productsQuantity.amount) }}</div>
-        <div class="col-xs-1 delete">{{ form_widget(productsQuantity.removeProduct) }}</div>
+{% macro renderWeightProduct(weightProduct) %}
+    <div id="{{ weightProduct.vars.id }}" class="row form-group product">
+        <div class="col-sm-7">{{ form_widget(weightProduct.product) }}</div>
+        <div class="col-xs-2 qty">{{ form_widget(weightProduct.weight) }}</div>
+        <div class="col-xs-1 delete">{{ form_widget(weightProduct.removeWeightProduct) }}</div>
     </div>
 {% endmacro %}
 {% block body %}
     {{ form_start(form) }}
     {{ form_row(form.name) }}
-    {{ form_label(form.productsQuantity) }}
+    {{ form_label(form.weightProducts) }}
 
-    <div id="{{ form.productsQuantity.vars.id }}"
+    <div id="{{ form.weightProducts.vars.id }}"
          class="col col-lg-12"
-         data-prototype="{{ self.renderProductsQuantity(form.productsQuantity.vars.prototype)|e('html') }}">
+         data-prototype="{{ self.renderWeightProduct(form.weightProducts.vars.prototype)|e('html') }}">
 
-        {% for productQuantity in form.productsQuantity %}
-            {{ self.renderProductsQuantity(productQuantity) }}
+        {% for weightProduct in form.weightProducts %}
+            {{ self.renderWeightProduct(weightProduct) }}
         {% endfor %}
     </div>
 
@@ -25,15 +25,15 @@
     {{ form_end(form) }}
     <script>
         jQuery(document).ready(function ($) {
-            $('form').on('click', '.addProductsQuantity', function (e) {
+            $('form').on('click', '.addWeightProduct', function (e) {
                 e.preventDefault();
 
-                let $collectionHolder = $('#{{ form.productsQuantity.vars.id }}');
+                let $collectionHolder = $('#{{ form.weightProducts.vars.id }}');
                 let index = $collectionHolder.data('index') || $collectionHolder.find(':input').length;
                 let prototype = $collectionHolder.data('prototype').replace(/__product__/g, index);
 
                 $collectionHolder.data('index', index + 1).append($(prototype));
-            }).on('click', '.removeProductsQuantity', function () {
+            }).on('click', '.removeWeightProduct', function () {
                 $(this).parent().parent().remove();
             })
         });

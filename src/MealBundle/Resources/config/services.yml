@@ -10,8 +10,8 @@ services:
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - MealBundle\Entity\Product
-    products_quantity_repository:
-        class: MealBundle\Repository\ProductsQuantityRepository
+    weight_product_repository:
+        class: MealBundle\Repository\WeightProductRepository
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - MealBundle\Entity\ProductsQuantity

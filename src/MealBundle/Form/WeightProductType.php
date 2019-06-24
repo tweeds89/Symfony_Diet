@@ -3,7 +3,7 @@
 namespace MealBundle\Form;
 
 use MealBundle\Entity\Product;
-use MealBundle\Entity\ProductsQuantity;
+use MealBundle\Entity\WeightProduct;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -12,10 +12,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ProductsQuantityType
+ * Class WeightProductType
  * @package MealBundle\Form
  */
-class ProductsQuantityType extends AbstractType
+class WeightProductType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -28,19 +28,17 @@ class ProductsQuantityType extends AbstractType
         $builder
             ->add('product', EntityType::class,[
                 'class' => Product::class,
-                'label' => 'Nazwa produktu',
             ])
-            ->add('amount', NumberType::class, [
-                'label' => 'Ilość',
+            ->add('weight', NumberType::class, [
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Ilość'
+                    'placeholder' => 'Ilość [g]'
                 ]
             ])
-            ->add('removeProduct', ButtonType::class, [
+            ->add('removeWeightProduct', ButtonType::class, [
                 'label' => 'X',
                 'attr'  => [
-                    'class' => 'btn-danger removeProductsQuantity'
+                    'class' => 'btn-danger removeWeightProduct'
                 ]
             ]);
     }
@@ -51,7 +49,7 @@ class ProductsQuantityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ProductsQuantity::class
+            'data_class' => WeightProduct::class
         ]);
     }
 }

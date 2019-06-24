@@ -23,6 +23,10 @@ meal_add:
     path: /add-meal
     controller: MealBundle:Meal:addMeal
     methods: [GET, POST]
+meal_edit:
+    path: /edit-meal/{meal}
+    controller: MealBundle:Meal:editMeal
+    methods: [GET, POST]
 meal_delete:
     path: /delete-meal/{meal}
     controller: MealBundle:Meal:deleteMeal

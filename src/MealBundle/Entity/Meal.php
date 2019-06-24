@@ -29,33 +29,29 @@ class Meal
     protected $name = "";
 
     /**
-     * @var ProductsQuantity[]|Collection
-     * @ORM\ManyToMany(targetEntity="ProductsQuantity", inversedBy="meal", cascade={"persist"}, fetch="EAGER")
-     * @ORM\JoinTable(name="meal_products_quantity_relation",
-     *     joinColumns={@ORM\JoinColumn(name="meal_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="products_quantity_id", referencedColumnName="id")}
-     * )
+     * @var Collection|WeightProduct[]
+     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\WeightProduct", mappedBy="meals", cascade={"persist"})
      */
-    protected $productsQuantity;
+    protected $weightProducts;
 
-    /**
-     * @var DayTimeMeal[]
-     * @ORM\OneToMany(targetEntity="MealBundle\Entity\DayTimeMeal", mappedBy="meal")
-     */
-    protected $dayTimeMeal;
+//    /**
+//     * @var DayTimeMeal[]
+//     * @ORM\OneToMany(targetEntity="MealBundle\Entity\DayTimeMeal", mappedBy="meal")
+//     */
+//    protected $dayTimeMeal;
 
     /**
      * Meal constructor.
      */
     public function __construct()
     {
-        $this->productsQuantity = new ArrayCollection();
+        $this->weightProducts = new ArrayCollection();
     }
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -89,40 +85,59 @@ class Meal
     }
 
     /**
-     * @return Collection|ProductsQuantity[]
+     * @return Collection|WeightProduct
      */
-    public function getProductsQuantity()
+    public function getWeightProducts(): Collection
     {
-        return $this->productsQuantity;
+        return $this->weightProducts;
     }
 
     /**
-     * @param Collection|ProductsQuantity[] $productsQuantity
-     * @return Meal
+     * @param WeightProduct $weightProduct
      */
-    public function setProductsQuantity($productsQuantity)
+    public function addWeightProduct(WeightProduct $weightProduct)
     {
-        $this->productsQuantity = $productsQuantity;
-        return $this;
+        if ($this->weightProducts->contains($weightProduct)) {
+
+            return;
+        }
+
+        $this->weightProducts->add($weightProduct);
+
+        $weightProduct->addMeal($this);
     }
 
     /**
-     * @return DayTimeMeal[]
+     * @param WeightProduct $weightProduct
      */
-    public function getDayTimeMeal(): array
+    public function removeWeightProduct(WeightProduct $weightProduct)
     {
-        return $this->dayTimeMeal;
+        if (!$this->weightProducts->contains($weightProduct)) {
+            return;
+        }
+
+        $this->weightProducts->removeElement($weightProduct);
+
+        $weightProduct->removeMeal($this);
     }
 
-    /**
-     * @param DayTimeMeal[] $dayTimeMeal
-     * @return Meal
-     */
-    public function setDayTimeMeal(array $dayTimeMeal): Meal
-    {
-        $this->dayTimeMeal = $dayTimeMeal;
-        return $this;
-    }
+//    /**
+//     * @return DayTimeMeal[]
+//     */
+//    public function getDayTimeMeal(): array
+//    {
+//        return $this->dayTimeMeal;
+//    }
+//
+//    /**
+//     * @param DayTimeMeal[] $dayTimeMeal
+//     * @return Meal
+//     */
+//    public function setDayTimeMeal(array $dayTimeMeal): Meal
+//    {
+//        $this->dayTimeMeal = $dayTimeMeal;
+//        return $this;
+//    }
 
     /**
      * @return string

@@ -6,6 +6,7 @@ use MealBundle\Entity\Meal;
 use MealBundle\Form\MealType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -44,6 +45,31 @@ class MealController extends Controller
 
         return $this->render('@Meal/Meal/add_meal.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @param Meal $meal
+     * @param Request $request
+     * @return RedirectResponse|Response
+     * @ParamConverter(name="meal", class="MealBundle:Meal", options={"id" = "meal"})
+     */
+    public function editMealAction(Meal $meal, Request $request)
+    {
+        $form = $this->createForm(MealType::class, $meal, ['method' => 'POST']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('POST') && $form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
+
+            $this->addFlash('success', 'Danie zostało zmienione');
+            return $this->redirectToRoute('meal_list');
+        }
+
+        return $this->render('@Meal/Meal/add_meal.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
