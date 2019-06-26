@@ -38,12 +38,11 @@ class DayTimeMealType extends AbstractType
                 'label' => 'Pora dnia',
                 'required' => true,
                 'choices' => $dayTimes
-            ])
-            ->add('meal', EntityType::class,[
+            ])->add('meals', EntityType::class,[
                 'class' => Meal::class,
-                'label' => 'Danie'
-            ])
-            ->add('removeDayTimeMeal', ButtonType::class, [
+                'label' => 'Danie',
+                'multiple' => true
+            ])->add('removeDayTimeMeal', ButtonType::class, [
                 'label' => 'X',
                 'attr'  => [
                     'class' => 'btn-danger removeDayTimeMeal'

@@ -23,13 +23,6 @@ class DayTimeMeal
     protected $id;
 
     /**
-     * @var Meal[]|Collection
-     * @ORM\JoinColumn(name="meal_id", referencedColumnName="id")
-     * @ORM\ManyToOne(targetEntity="Meal", inversedBy="dayTimeMeal")
-     */
-    protected $meal;
-
-    /**
      * @see DayTimeEnum
      * @var int $dayTime
      * @ORM\Column(name="day_time", type="integer")
@@ -37,18 +30,28 @@ class DayTimeMeal
     protected $dayTime;
 
     /**
-     * @var $day
-     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\Day", mappedBy="dayTimeMeal")
+     * @var DayTimeMeal|Collection
+     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\Day", inversedBy="dayTimeMeals", cascade={"persist"})
+     * @ORM\JoinTable(name="day_day_time_meal_relation",
+     *     joinColumns={@ORM\JoinColumn(name="day_time_meal_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="day_id", referencedColumnName="id")}
+     * )
      */
-    protected $day;
+    protected $days;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\Meal")
+     * @ORM\JoinColumn(name="fighter_id", referencedColumnName="id")
+     */
+    protected $meals;
 
     /**
      * DayTimeMeal constructor.
      */
     public function __construct()
     {
-        $this->day = new ArrayCollection();
-        $this->meal = new ArrayCollection();
+        $this->days = new ArrayCollection();
+        $this->meals = new ArrayCollection();
     }
 
     /**
@@ -70,20 +73,20 @@ class DayTimeMeal
     }
 
     /**
-     * @return Meal[]|Collection
+     * @return mixed
      */
-    public function getMeal()
+    public function getMeals()
     {
-        return $this->meal;
+        return $this->meals;
     }
 
     /**
-     * @param Meal[] $meal
+     * @param mixed $meals
      * @return DayTimeMeal
      */
-    public function setMeal($meal)
+    public function setMeals($meals)
     {
-        $this->meal = $meal;
+        $this->meals = $meals;
         return $this;
     }
 
@@ -99,27 +102,43 @@ class DayTimeMeal
      * @param int $dayTime
      * @return DayTimeMeal
      */
-    public function setDayTime(int $dayTime): DayTimeMeal
+    public function setDayTime(?int $dayTime): DayTimeMeal
     {
         $this->dayTime = $dayTime;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getDay()
+    public function getDays(): Collection
     {
-        return $this->day;
+        return $this->days;
     }
 
     /**
-     * @param mixed $day
-     * @return DayTimeMeal
+     * @param Day $day
      */
-    public function setDay($day)
+    public function addDay(Day $day): void
     {
-        $this->day = $day;
-        return $this;
+        if ($this->days->contains($day)){
+            return;
+        }
+        $this->days->add($day);
+
+        $day->addDayTimeMeal($this);
+    }
+
+    /**
+     * @param Day $day
+     */
+    public function removeDay(Day $day): void
+    {
+        if (!$this->days->contains($day)) {
+            return;
+        }
+        $this->days->removeElement($day);
+
+        $day->removeDayTimeMeal($this);
     }
 }

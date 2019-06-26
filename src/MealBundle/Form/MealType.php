@@ -26,11 +26,10 @@ class MealType extends AbstractType
     {
         parent::buildForm($builder, $options);
 
-        $builder
-            ->add('name', TextType::class,[
-                'label' => 'Nazwa Dania',
-                'required' => true
-            ]);
+        $builder->add('name', TextType::class, [
+            'label' => 'Nazwa Dania',
+            'required' => true
+        ]);
 
         if (is_null($options['data']->getId())) {
             $builder->add('weightProducts', CollectionType::class, [
@@ -61,17 +60,16 @@ class MealType extends AbstractType
                 'by_reference' => false,
             ]);
         }
-            $builder->add('addWeightProduct', ButtonType::class, [
-                'label' => 'Dodaj kolejny produkt',
-                'attr'  => [
-                    'class' => 'btn-default addWeightProduct'
-                ]
-            ])
-                ->add('submit', SubmitType::class, [
-                    'label' => 'Dodaj'
-                ]);
-        }
-
+        $builder->add('addWeightProduct', ButtonType::class, [
+            'label' => 'Dodaj kolejny produkt',
+            'attr' => [
+                'class' => 'btn-default addWeightProduct'
+            ]
+        ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Dodaj'
+            ]);
+    }
 
     /**
      * @param OptionsResolver $resolver

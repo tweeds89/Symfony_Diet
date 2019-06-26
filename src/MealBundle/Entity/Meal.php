@@ -34,12 +34,6 @@ class Meal
      */
     protected $weightProducts;
 
-//    /**
-//     * @var DayTimeMeal[]
-//     * @ORM\OneToMany(targetEntity="MealBundle\Entity\DayTimeMeal", mappedBy="meal")
-//     */
-//    protected $dayTimeMeal;
-
     /**
      * Meal constructor.
      */
@@ -120,24 +114,6 @@ class Meal
 
         $weightProduct->removeMeal($this);
     }
-
-//    /**
-//     * @return DayTimeMeal[]
-//     */
-//    public function getDayTimeMeal(): array
-//    {
-//        return $this->dayTimeMeal;
-//    }
-//
-//    /**
-//     * @param DayTimeMeal[] $dayTimeMeal
-//     * @return Meal
-//     */
-//    public function setDayTimeMeal(array $dayTimeMeal): Meal
-//    {
-//        $this->dayTimeMeal = $dayTimeMeal;
-//        return $this;
-//    }
 
     /**
      * @return string

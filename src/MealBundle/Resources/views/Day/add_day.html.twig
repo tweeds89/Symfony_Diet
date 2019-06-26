@@ -3,7 +3,7 @@
 {% macro renderDayTimeMeal(dayTimeMeal) %}
     <div id="{{ dayTimeMeal.vars.id }}" class="row form-group product">
         <div class="col-xs-2">{{ form_widget(dayTimeMeal.dayTime) }}</div>
-        <div class="col-sm-7 qty">{{ form_widget(dayTimeMeal.meal) }}</div>
+        <div class="col-sm-7 qty">{{ form_widget(dayTimeMeal.meals) }}</div>
         <div class="col-xs-1 delete">{{ form_widget(dayTimeMeal.removeDayTimeMeal) }}</div>
     </div>
 {% endmacro %}

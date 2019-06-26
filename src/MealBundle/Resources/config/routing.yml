@@ -40,6 +40,10 @@ day_add:
     path: /add-day
     controller: MealBundle:Day:addDay
     methods: [GET, POST]
+day_edit:
+    path: /edit-day/{day}
+    controller: MealBundle:Day:editDay
+    methods: [GET, POST]
 day_list:
     path: /day-list
     controller: MealBundle:Day:index

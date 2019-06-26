@@ -9,6 +9,7 @@
                 <th>Dzień</th>
                 <th>Kalorie dzienne</th>
                 <th>Pora dnia/danie</th>
+                <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
@@ -28,11 +29,17 @@
                                 <td>
                                     {% for dayTimeMeal in day.dayTimeMeals %}
                                         <b>{{ ("diet.meal.day_times." ~dayTimeMeal.dayTime) |trans }}:</b><br>
-                                        {{ dayTimeMeal.meal }}<br>
+                                        {% for meal in dayTimeMeal.meals %}
+                                            {{ meal }}<br>
+                                        {% endfor %}
                                     {% endfor %}
                                 </td>
                             </tr>
                         </table>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path("day_edit", {'day': day.id}) }}"
+                           role="button">Edytuj</a>
                     </td>
                 </tr>
             {% endfor %}

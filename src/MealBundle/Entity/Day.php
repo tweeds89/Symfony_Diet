@@ -29,12 +29,8 @@ class Day
     protected $day;
 
     /**
-     * @var DayTimeMeal|Collection
-     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\DayTimeMeal", inversedBy="day", cascade={"persist"}, fetch="EAGER")
-     * @ORM\JoinTable(name="day_day_time_meal_relation",
-     *     joinColumns={@ORM\JoinColumn(name="day_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="day_time_meal_id", referencedColumnName="id")}
-     * )
+     * @var DayTimeMeal|Collection $dayTimeMeals
+     * @ORM\ManyToMany(targetEntity="MealBundle\Entity\DayTimeMeal", mappedBy="days", cascade={"persist"})
      */
     protected $dayTimeMeals;
 
@@ -85,18 +81,37 @@ class Day
     /**
      * @return Collection|DayTimeMeal
      */
-    public function getDayTimeMeals()
+    public function getDayTimeMeals(): Collection
     {
         return $this->dayTimeMeals;
     }
 
     /**
-     * @param Collection|DayTimeMeal $dayTimeMeals
-     * @return Day
+     * @param DayTimeMeal $dayTimeMeal
      */
-    public function setDayTimeMeals($dayTimeMeals)
+    public function addDayTimeMeal(DayTimeMeal $dayTimeMeal)
     {
-        $this->dayTimeMeals = $dayTimeMeals;
-        return $this;
+        if ($this->dayTimeMeals->contains($dayTimeMeal)) {
+
+            return;
+        }
+
+        $this->dayTimeMeals->add($dayTimeMeal);
+
+        $dayTimeMeal->addDay($this);
+    }
+
+    /**
+     * @param DayTimeMeal $dayTimeMeal
+     */
+    public function removeDayTimeMeal(DayTimeMeal $dayTimeMeal)
+    {
+        if (!$this->dayTimeMeals->contains($dayTimeMeal)) {
+            return;
+        }
+
+        $this->dayTimeMeals->removeElement($dayTimeMeal);
+
+        $dayTimeMeal->removeDay($this);
     }
 }
