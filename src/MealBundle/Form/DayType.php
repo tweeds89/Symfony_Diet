@@ -28,7 +28,11 @@ class DayType extends AbstractType
 
         $builder->add('day', DateType::class, [
             'label' => 'Dzień',
-            'required' => true
+            'widget' => 'single_text',
+            'required' => true,
+            'attr' => [
+                'class' => 'js-datepicker'
+            ]
         ]);
 
         if (is_null($options['data']->getId())) {

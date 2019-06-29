@@ -9,7 +9,11 @@
 {% endmacro %}
 {% block body %}
     {{ form_start(form) }}
-    {{ form_row(form.day) }}
+    <div class="row">
+        <div class="col-xs-2">
+            {{ form_row(form.day) }}
+        </div>
+    </div>
     {{ form_label(form.dayTimeMeals) }}
 
     <div id="{{ form.dayTimeMeals.vars.id }}"
@@ -33,9 +37,17 @@
                 let prototype = $collectionHolder.data('prototype').replace(/__meal__/g, index);
 
                 $collectionHolder.data('index', index + 1).append($(prototype));
+
+                $('#{{ form.dayTimeMeals.vars.id }}').find('select').each(function(){
+                    $(this).select2();
+                });
             }).on('click', '.removeDayTimeMeal', function () {
                 $(this).parent().parent().remove();
-            })
+            });
+
+            $('#{{ form.dayTimeMeals.vars.id }}').find('select').each(function(){
+                $(this).select2();
+            });
         });
     </script>
 {% endblock %}

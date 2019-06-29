@@ -53,6 +53,7 @@ class DayController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Dzień został zaplanowany');
+            return $this->redirectToRoute('day_list');
         }
 
         return $this->render('@Meal/Day/add_day.html.twig', [
@@ -78,6 +79,7 @@ class DayController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Dzień został zmieniony');
+            return $this->redirectToRoute('day_list');
         }
 
         return $this->render('@Meal/Day/add_day.html.twig', [
