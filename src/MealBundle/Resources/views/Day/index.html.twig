@@ -7,6 +7,7 @@
             <thead>
             <tr>
                 <th>Dzień</th>
+                <th>Dzień tygodnia</th>
                 <th>Kalorie dzienne</th>
                 <th>Pora dnia/danie</th>
                 <th>Akcje</th>
@@ -16,6 +17,7 @@
             {% for day in days %}
                 <tr>
                     <td>{{ day.day.format("Y-m-d") }}</td>
+                    <td>{{ ("diet.meal.weekdays." ~day.day|date('l')) |trans }}</td>
                     <td>
                         {% for key, calories in dayCalories %}
                             {% if day.id == key %}
