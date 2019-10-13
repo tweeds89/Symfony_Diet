@@ -6,12 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Id;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Day
  * @package MealBundle\Entity
  * @ORM\Entity(repositoryClass="MealBundle\Repository\DayRepository")
  * @ORM\Table(name="day")
+ * @UniqueEntity("day", message="date_unique")
  */
 class Day
 {
@@ -24,7 +26,7 @@ class Day
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="day", type="datetime")
+     * @ORM\Column(name="day", type="datetime", unique=true)
      */
     protected $day;
 

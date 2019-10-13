@@ -10,8 +10,8 @@
 {% block body %}
     {{ form_start(form) }}
     <div class="row">
-        <div class="col-xs-2">
-            {{ form_row(form.day) }}
+        <div class="col-xs-4">
+            {{ form_row(form.day, {'attr': {'style': 'width:150', 'placeholder': 'RRRR-MM-DD'}}) }}
         </div>
     </div>
     {{ form_label(form.dayTimeMeals) }}
@@ -38,16 +38,39 @@
 
                 $collectionHolder.data('index', index + 1).append($(prototype));
 
-                $('#{{ form.dayTimeMeals.vars.id }}').find('select').each(function(){
-                    $(this).select2();
+                $('#{{ form.dayTimeMeals.vars.id }}').find('select').each(function () {
+                    $(this).select2({
+                        placeholder: "Wybierz dania"
+                    });
                 });
             }).on('click', '.removeDayTimeMeal', function () {
                 $(this).parent().parent().remove();
+            }).on("submit", function () {
+                if (areDayTimeDuplicates() == false) {
+                    alert("Proszę sprawdzić, czy nie powtarzają się pory posiłków. Każda pora może występować tylko raz");
+                    return false;
+                }
             });
 
-            $('#{{ form.dayTimeMeals.vars.id }}').find('select').each(function(){
-                $(this).select2();
+            $('#{{ form.dayTimeMeals.vars.id }}').find('select').each(function () {
+                $(this).select2({
+                    placeholder: "Wybierz dania"
+                });
             });
+
+            function areDayTimeDuplicates() {
+                var selected = [];
+                $('.day-time option:selected').each(function () {
+                    selected.push(this.value);
+                });
+
+                var sorted_selected = selected.slice().sort();
+                for (var i = 0; i < sorted_selected.length - 1; i++) {
+                    if (sorted_selected[i + 1] == sorted_selected[i]) {
+                        return false;
+                    }
+                }
+            }
         });
     </script>
 {% endblock %}

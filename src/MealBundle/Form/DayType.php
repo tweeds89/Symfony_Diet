@@ -30,6 +30,7 @@ class DayType extends AbstractType
             'label' => 'Dzień',
             'widget' => 'single_text',
             'required' => true,
+            'html5' => false,
             'attr' => [
                 'class' => 'js-datepicker'
             ]
