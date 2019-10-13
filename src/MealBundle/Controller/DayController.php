@@ -86,4 +86,20 @@ class DayController extends Controller
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @ParamConverter(name="meal", class="MealBundle:Day", options={"id" = "day"})
+     *
+     * @param Day $day
+     * @return Response
+     */
+    public function deleteDayAction(Day $day): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($day);
+        $em->flush();
+
+        $this->addFlash('danger', 'Dzień został usunięty');
+        return $this->redirectToRoute('day_list');
+    }
 }
