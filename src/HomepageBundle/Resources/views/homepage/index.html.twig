@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div style="text-align: center; font-size: large" >
+        <p>
+            Witam na stronie gdzie możesz zarządzać swoją dietą
+        </p>
+        <p>
+            Strona jest podzielona na trzy sekcje
+        </p>
+        <p>
+            W sekcji <a href="{{ path("product_list") }}">Produkty</a> możesz dodawać, edytować i usuwać swoje produkty
+        </p>
+        <p>
+            Następnie dodane produkty możesz wykorzystywać do tworzenia posiłków w sekcji <a href="{{ path("meal_list") }}">Dania</a>
+        </p>
+        <p>
+            W sekcji <a href="{{ path("day_list") }}">Planowanie diety</a> możesz zaplanować konkretne dania na wybrane dni
+        </p>
+    </div>
+{% endblock %}

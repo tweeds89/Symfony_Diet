@@ -1,5 +1,6 @@
 <?php
 
+use HomepageBundle\HomepageBundle;
 use MealBundle\MealBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
@@ -17,6 +18,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new HomepageBundle(),
             new MealBundle()
         ];
 

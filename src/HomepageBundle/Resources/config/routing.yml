@@ -1,0 +1,4 @@
+homepage:
+  path: /
+  controller: HomepageBundle:Homepage:index
+  methods: [GET]
