@@ -27,10 +27,16 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class,[
                 'label' => 'Nazwa produktu',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Nazwa produktu'
+                ]
             ])->add('calories', NumberType::class, [
                 'label' => 'Liczba kalorii [kcal/100g]',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'kcal/100g'
+                ]
             ])->add('submit', SubmitType::class, [
                 'label' => 'Dodaj'
             ]);

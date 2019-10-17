@@ -12,13 +12,13 @@
         <tbody>
         <tr>
             <td>{{ meal.name }}</td>
-            <td>{{ mealCalories }}</td>
+            <td>{{ mealCalories }} kcal</td>
             <td>
                 <table>
                     {% for name, productCalories in productsCalories %}
                         <tr>
                             <td>
-                                {{ name }}: {{ productCalories.weight }}g ({{ productCalories.calories }} kal)
+                                {{ name }}: {{ productCalories.weight }}g ({{ productCalories.calories }} kcal)
                             </td>
                         </tr>
                     {% endfor %}

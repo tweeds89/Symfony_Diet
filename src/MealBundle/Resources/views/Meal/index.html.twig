@@ -17,7 +17,7 @@
                     <td>{{ meal.id }}</td>
                     <td>{{ meal.name }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ path("meal_details", {'meal': meal.id}) }}" role="button">Szczegóły</a>
+                        <a class="btn btn-success" href="{{ path("meal_details", {'meal': meal.id}) }}" role="button">Szczegóły</a>
                         <a class="btn btn-primary" href="{{ path("meal_edit", {'meal': meal.id}) }}" role="button">Edytuj</a>
                         <a class="btn btn-danger" href="{{ path("meal_delete", {'meal': meal.id}) }}"
                            onclick="return confirm('Na pewno chcesz usunąć to danie?')" role="button">Usuń</a>

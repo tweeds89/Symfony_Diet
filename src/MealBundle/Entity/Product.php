@@ -30,7 +30,7 @@ class Product
      * @var int
      * @ORM\Column(name="calories", type="integer")
      */
-    protected $calories = 0;
+    protected $calories;
 
     /**
      * @var WeightProduct[]
@@ -75,9 +75,9 @@ class Product
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getCalories(): int
+    public function getCalories(): ?int
     {
         return $this->calories;
     }
@@ -115,6 +115,6 @@ class Product
      */
     public function __toString()
     {
-        return $this->getName();
+        return sprintf("%s (%s %s)", $this->getName(), $this->getCalories(), 'kcal/100g');
     }
 }

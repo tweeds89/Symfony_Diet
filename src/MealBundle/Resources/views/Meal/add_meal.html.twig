@@ -9,16 +9,25 @@
 {% endmacro %}
 {% block body %}
     {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_label(form.weightProducts) }}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_row(form.name) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-lg-7">
+                {{ form_label(form.weightProducts) }}
+                <div id="{{ form.weightProducts.vars.id }}"
+                     class="col col-lg-12"
+                     data-prototype="{{ self.renderWeightProduct(form.weightProducts.vars.prototype)|e('html') }}">
 
-    <div id="{{ form.weightProducts.vars.id }}"
-         class="col col-lg-12"
-         data-prototype="{{ self.renderWeightProduct(form.weightProducts.vars.prototype)|e('html') }}">
-
-        {% for weightProduct in form.weightProducts %}
-            {{ self.renderWeightProduct(weightProduct) }}
-        {% endfor %}
+                    {% for weightProduct in form.weightProducts %}
+                        {{ self.renderWeightProduct(weightProduct) }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 
     {{ form_rest(form) }}
@@ -33,9 +42,17 @@
                 let prototype = $collectionHolder.data('prototype').replace(/__product__/g, index);
 
                 $collectionHolder.data('index', index + 1).append($(prototype));
+
+                $('#{{ form.weightProducts.vars.id }}').find('select').each(function () {
+                    $(this).select2();
+                });
             }).on('click', '.removeWeightProduct', function () {
                 $(this).parent().parent().remove();
-            })
+            });
+
+            $('#{{ form.weightProducts.vars.id }}').find('select').each(function () {
+                $(this).select2();
+            });
         });
     </script>
 {% endblock %}

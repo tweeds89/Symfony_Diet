@@ -37,7 +37,10 @@ class DayTimeMealType extends AbstractType
             ->add('dayTime', ChoiceType::class, [
                 'label' => 'Pora dnia',
                 'required' => true,
-                'choices' => $dayTimes
+                'choices' => $dayTimes,
+                'attr' => [
+                    'class' => 'day-time'
+                ]
             ])->add('meals', EntityType::class,[
                 'class' => Meal::class,
                 'label' => 'Danie',

@@ -27,8 +27,11 @@ class MealType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder->add('name', TextType::class, [
-            'label' => 'Nazwa Dania',
-            'required' => true
+            'label' => 'Nazwa dania',
+            'required' => true,
+            'attr' => [
+                'placeholder' => 'Nazwa dania'
+            ]
         ]);
 
         if (is_null($options['data']->getId())) {
