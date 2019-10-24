@@ -1,27 +1,65 @@
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous" xmlns=""></script>
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+    <script src="{{ asset('/js/confirmationDialog.js') }}"></script>
+    <script src="{{ asset('/js/alertDialog.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+
+            $('body').on('click', '.delete-button', function (e) {
+                e.preventDefault();
+                const $link = $(this).attr('href');
+                confirmationDialog(
+                    'Usuwanie pozycji',
+                    'Czy jesteś pewny, ze chcesz usunać tą pozycję?',
+                    'Usuń',
+                    'Nie usuwaj',
+                    function () {
+                        $.ajax({
+                            url: $link,
+                            type: 'DELETE',
+                            contentType: 'application/json'
+                        }).done(function () {
+                            alertDialog(
+                                'Usuwanie pozycji',
+                                'Pozycja została pomyślnie usunięta'
+                            );
+                        }).fail(function () {
+                            alertDialog(
+                                'Usuwanie pozycji',
+                                'Usuwanie pozycji się nie powiodło'
+                            );
+                        });
+                    }
+                );
+            })
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="{{ path("homepage") }}">Homepage</a>
             <a class="navbar-brand" href="{{ path("product_list") }}">Produkty</a>
             <a class="navbar-brand" href="{{ path("meal_list") }}">Dania</a>
             <a class="navbar-brand" href="{{ path("day_list") }}">Planowanie diety</a>
         </div>
-
     </div>
 </nav>
 <div class="container">
@@ -38,17 +76,4 @@
     </div>
     {% block body %}{% endblock %}
 </div>
-{% block javascripts %}
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.js-datepicker').datepicker({
-                format: 'yyyy-mm-dd'
-            });
-        });
-    </script>
-{% endblock %}
 </body>

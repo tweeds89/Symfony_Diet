@@ -6,7 +6,7 @@ use MealBundle\Entity\Meal;
 use MealBundle\Form\MealType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -49,12 +49,13 @@ class MealController extends Controller
     }
 
     /**
+     * @ParamConverter(name="meal", class="MealBundle:Meal", options={"id" = "meal"})
+     *
      * @param Meal $meal
      * @param Request $request
-     * @return RedirectResponse|Response
-     * @ParamConverter(name="meal", class="MealBundle:Meal", options={"id" = "meal"})
+     * @return Response
      */
-    public function editMealAction(Meal $meal, Request $request)
+    public function editMealAction(Meal $meal, Request $request): Response
     {
         $form = $this->createForm(MealType::class, $meal, ['method' => 'POST']);
         $form->handleRequest($request);
@@ -77,16 +78,17 @@ class MealController extends Controller
      * @ParamConverter(name="meal", class="MealBundle:Meal", options={"id" = "meal"})
      *
      * @param Meal $meal
-     * @return Response
+     * @return JsonResponse
      */
-    public function deleteMealAction(Meal $meal): Response
+    public function deleteMealAction(Meal $meal): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($meal);
         $em->flush();
 
-        $this->addFlash('danger', 'Danie zostało usunięte');
-        return $this->redirectToRoute('meal_list');
+        $response = new JsonResponse();
+        $response->setData(['ok']);
+        return $response;
     }
 
     /**

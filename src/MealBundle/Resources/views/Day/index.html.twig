@@ -49,14 +49,14 @@
                         </table>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="{{ path("day_edit", {'day': day.id}) }}"
-                           role="button">Edytuj</a>
-                        <a class="btn btn-danger" href="{{ path("day_delete", {'day': day.id}) }}"
-                           onclick="return confirm('Na pewno chcesz usunąć ten dzień?')" role="button">Usuń</a>
+                        <a class="btn btn-primary" href="{{ path("day_edit", {'day': day.id}) }}" role="button">Edytuj</a>
+                        <a class="btn btn-danger delete-button" href="{{ path("day_delete", {'day': day.id}) }}" role="button">Usuń</a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     {% endif %}
+    {% include "/templates/confirmation-dialog-template.html.twig" %}
+    {% include "/templates/alert-dialog-template.html.twig" %}
 {% endblock %}

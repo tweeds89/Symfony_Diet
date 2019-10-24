@@ -6,6 +6,7 @@ use MealBundle\Entity\Day;
 use MealBundle\Form\DayType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -91,15 +92,16 @@ class DayController extends Controller
      * @ParamConverter(name="meal", class="MealBundle:Day", options={"id" = "day"})
      *
      * @param Day $day
-     * @return Response
+     * @return JsonResponse
      */
-    public function deleteDayAction(Day $day): Response
+    public function deleteDayAction(Day $day): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($day);
         $em->flush();
 
-        $this->addFlash('danger', 'Dzień został usunięty');
-        return $this->redirectToRoute('day_list');
+        $response = new JsonResponse();
+        $response->setData(['ok']);
+        return $response;
     }
 }

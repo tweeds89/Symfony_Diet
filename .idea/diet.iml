@@ -51,5 +51,7 @@
     <orderEntry type="library" name="bootstrap-datepicker" level="application" />
     <orderEntry type="library" name="bootstrap-datepicker.pl" level="application" />
     <orderEntry type="library" name="select2" level="application" />
+    <orderEntry type="library" name="jquery-confirm" level="application" />
+    <orderEntry type="library" name="jquery-ui" level="application" />
   </component>
 </module>

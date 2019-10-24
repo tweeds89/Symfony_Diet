@@ -6,7 +6,7 @@ use MealBundle\Entity\Product;
 use MealBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -78,15 +78,16 @@ class ProductController extends Controller
      * @ParamConverter(name="product", class="MealBundle:Product", options={"id" = "product"})
      *
      * @param Product $product
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function deleteProductAction(Product $product): Response
+    public function deleteProductAction(Product $product): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($product);
         $em->flush();
 
-        $this->addFlash('danger', 'Produkt został usunięty');
-        return $this->redirectToRoute('product_list');
+        $response = new JsonResponse();
+        $response->setData(['ok']);
+        return $response;
     }
 }
