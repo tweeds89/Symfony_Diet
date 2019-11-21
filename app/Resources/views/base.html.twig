@@ -49,6 +49,23 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<style>
+    html {
+        position: relative;
+        min-height: 100%;
+        padding-bottom:90px;
+    }
+
+    .footer {
+        position: absolute;
+        padding-top: 10px;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        text-align: center;
+        background-color: #c8e5bc;
+    }
+</style>
 {% endblock %}
 
 <body>
@@ -77,3 +94,6 @@
     {% block body %}{% endblock %}
 </div>
 </body>
+<footer class="footer">© 2019 Copyright: Paweł Paliński<br>
+    <a href="mailto:p.palinski@gmail.com">p.palinski@gmail.com</a>
+</footer>
