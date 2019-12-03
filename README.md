@@ -1,4 +1,8 @@
-diet
+Planowanie diety
 ====
 
-A Symfony project for meal planning and calories calculation
+W aplikacji możesz dodawać, edytować i usuwać swoje produkty.
+
+Następnie dodane produkty możesz wykorzystywać do tworzenia posiłków.
+
+Z gotowych posiłków możesz wybierać konkretne dania na wybrane dni.
